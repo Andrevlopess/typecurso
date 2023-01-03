@@ -1,5 +1,6 @@
 import { log } from 'console';
 import React from 'react';
+import { readBuilderProgram } from 'typescript';
 import './App.css';
 
 function App() {
@@ -150,72 +151,85 @@ function App() {
   // * function without return "VOID"
 
   function logSum(a: number, b: number): void {
-    console.log( a + b );
-    
+    console.log(a + b);
+
   }
 
   // * callback as an argument
-    function greeting(name: string): string {
-      return 'hi ' + name;
+  function greeting(name: string): string {
+    return 'hi ' + name;
+  }
+
+  function preGreeting(f: (name: string) => string, userName: string) {
+    const greet = f(userName)
+    console.log(greet);
+
+  }
+
+  preGreeting(greeting, 'andre')
+
+
+  // * generic functions
+
+  function firstElement<T>(arr: T[]): T {
+    return arr[0]
+  }
+
+  console.log(firstElement([1, 2, 3]));
+
+  function mergeObjects<U, T>(obj1: U, obj2: T) {
+    return {
+      ...obj1,
+      ...obj2,
     }
- 
-    function preGreeting(f : (name:string) => string, userName: string) {
-      const greet = f(userName)
-      console.log(greet);
-      
+  }
+
+  const newObject = mergeObjects({ name: "andre" }, { age: 15, lastName: "lopes" })
+
+  // console.log(newObject);
+
+  // * CONSTRAINTS em generic types
+
+  function biggestNumber<T extends number | string>(a: T, b: T): T {
+
+    let biggest: T
+
+    if (+a > +b) {
+      biggest = a
+    } else {
+      biggest = b
     }
 
-    preGreeting(greeting, 'andre')
+    return biggest
+  }
+
+  console.log(biggestNumber("5", "99"));
+
+  // * specifying the argument type
+
+  function mergeArrays<T>(arr1: T[], arr2: T[]) {
+
+    return arr1.concat(arr2)
+  }
+
+  console.log(mergeArrays([1, 2, 3], [5, 6, 7]));
+  console.log(mergeArrays<number | string>([1, 2, 3], ["andre", 'vitor']));
 
 
-    // * generic functions
+  // * optional parameters
 
-    function firstElement<T>(arr: T[]) : T {
-      return arr[0]
+  function modernGreeting(name: string, greet?: string) {
+    if (greet) {
+      return `olá ${greet} ${name}, tudo bem?  `
     }
+  }
 
-    console.log(firstElement([1,2,3]));
-    
-    function mergeObjects<U, T>(obj1: U, obj2: T){
-      return{
-        ...obj1,
-        ...obj2,
-      }
-    }
+ // * default params
 
-    const newObject = mergeObjects({name: "andre"}, {age: 15, lastName: "lopes"})
+   function defaultGreet(name: string = "andre" ){
+      return name + 'slk'
+   }
 
-     // console.log(newObject);
-    
-     // * CONSTRAINTS em generic types
-
-     function  biggestNumber<T extends number | string>(a: T, b: T): T {
-
-      let biggest : T
-
-      if(+a > +b){
-        biggest = a
-      }else{
-        biggest = b
-      }
-
-      return biggest
-     }
-
-     console.log(biggestNumber("5", "99"));
-     
-     // * specifying the argument type
-
-     function mergeArrays<T>(arr1 : T[], arr2 : T[]) {
-
-      return arr1.concat(arr2)
-     }
-
-     console.log(mergeArrays([1,2,3], [5,6,7]));
-     console.log(mergeArrays<number | string>([1,2,3], ["andre", 'vitor']));
-     
-
- 
   return (
 
     <div className="App">
