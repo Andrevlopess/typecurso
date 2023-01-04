@@ -226,8 +226,8 @@ function App() {
 
   // * default params
 
-  function defaultGreet(name: string = "andre") {
-    return name + 'slk'
+  function defaultGreet(name: string = "andre", lastName: string) {
+    return name + lastName
   }
 
   // * never type
@@ -249,15 +249,49 @@ function App() {
   interface Person {
     name: string
     age: number
+    lastName: string
+    working?: boolean
   }
 
-  function typeTest({ name, age }: Person): string {
-    return `${name} ${age}`
+  function typeTest(person: Person) {
+    console.log(`the name is ${person.name} ${person.age} ${person.lastName}`);
+    person.working ? console.log('nao é vagabundo') : console.log('ainda é vagabundo');
+    
+    
+
   }
 
-  const dede = { name: "andre", age: 15 }
-  // console.log(typeTest(dede));
+  const dede: Person = {
+    name: "andre",
+    age: 15,
+    lastName: 'lopes',
+    working: true
+  }
 
+   typeTest(dede)
+
+   // * readOnly
+
+   interface Car {
+    brand: string
+    readonly wheels: Number
+   }
+
+   const Lamba:Car ={
+    brand: 'Lamborga',
+    wheels: 4
+   }
+
+   // * index signature
+
+   interface Teste {
+    // the name of the property needs to be an string and the value a number
+    [index: string]: number 
+   }
+
+   const testeDaInterface:Teste = {
+      bananas : 5
+   }
 
   return (
 
