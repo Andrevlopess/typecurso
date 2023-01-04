@@ -1,6 +1,6 @@
-import { log } from 'console';
+
 import React from 'react';
-import { readBuilderProgram } from 'typescript';
+
 import './App.css';
 
 function App() {
@@ -212,8 +212,8 @@ function App() {
     return arr1.concat(arr2)
   }
 
-  console.log(mergeArrays([1, 2, 3], [5, 6, 7]));
-  console.log(mergeArrays<number | string>([1, 2, 3], ["andre", 'vitor']));
+  //console.log(mergeArrays([1, 2, 3], [5, 6, 7]));
+  //console.log(mergeArrays<number | string>([1, 2, 3], ["andre", 'vitor']));
 
 
   // * optional parameters
@@ -224,13 +224,106 @@ function App() {
     }
   }
 
- // * default params
+  // * default params
 
-   function defaultGreet(name: string = "andre" ){
-      return name + 'slk'
-   }
+  function defaultGreet(name: string = "andre", lastName: string) {
+    return name + lastName
+  }
+
+  // * never type
+
+  function throwError(msg: string): never {
+    throw new Error(msg)
+  }
+
+  // throwError("esse é o erro")
+
+  // * rest operator
+
+  function sumAll(...n: number[]): number {
+    return n.reduce((number, sum) => number + sum)
+  }
+
+  // * 
+
+  interface Person {
+    name: string
+    age: number
+    lastName: string
+    working?: boolean
+  }
+
+  function typeTest(person: Person) {
+    console.log(`the name is ${person.name} ${person.age} ${person.lastName}`);
+    person.working ? console.log('nao é vagabundo') : console.log('ainda é vagabundo');
+
+
+
+  }
+
+  const dede: Person = {
+    name: "andre",
+    age: 15,
+    lastName: 'lopes',
+    working: true
+  }
+
+  typeTest(dede)
+
+  // * readOnly
+
+  interface Car {
+    brand: string
+    readonly wheels: Number
+  }
+
+  const Lamba: Car = {
+    brand: 'Lamborga',
+    wheels: 4
+  }
+
+  // * index signature
+
+  interface Teste {
+    // the name of the property needs to be an string and the value a number
+    [index: string]: number
+  }
+
+  const testeDaInterface: Teste = {
+    bananas: 5
+  }
+
+  // * extends interface
+
+  interface Human {
+    name: string,
+    age: number,
+    gender: string
+  }
+
+  interface SuperHuman extends Human {
+    superPowers: string[]
+  }
+
+  const andre: Human = {
+    name: 'andre',
+    age: 15,
+    gender: 'male'
+  }
+
+  const superDede: SuperHuman = {
+    name: 'superDede',
+    age: 99,
+    gender: 'superMale',
+    superPowers: ['invisibility', 'x-ray']
+  }
+
+  // console.log(superDede.superPowers);
+  
+
 
   return (
+
 
     <div className="App">
 
