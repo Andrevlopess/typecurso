@@ -256,8 +256,8 @@ function App() {
   function typeTest(person: Person) {
     console.log(`the name is ${person.name} ${person.age} ${person.lastName}`);
     person.working ? console.log('nao é vagabundo') : console.log('ainda é vagabundo');
-    
-    
+
+
 
   }
 
@@ -268,30 +268,59 @@ function App() {
     working: true
   }
 
-   typeTest(dede)
+  typeTest(dede)
 
-   // * readOnly
+  // * readOnly
 
-   interface Car {
+  interface Car {
     brand: string
     readonly wheels: Number
-   }
+  }
 
-   const Lamba:Car ={
+  const Lamba: Car = {
     brand: 'Lamborga',
     wheels: 4
-   }
+  }
 
-   // * index signature
+  // * index signature
 
-   interface Teste {
+  interface Teste {
     // the name of the property needs to be an string and the value a number
-    [index: string]: number 
-   }
+    [index: string]: number
+  }
 
-   const testeDaInterface:Teste = {
-      bananas : 5
-   }
+  const testeDaInterface: Teste = {
+    bananas: 5
+  }
+
+  // * extends interface
+
+  interface Human {
+    name: string,
+    age: number,
+    gender: string
+  }
+
+  interface SuperHuman extends Human {
+    superPowers: string[]
+  }
+
+  const andre: Human = {
+    name: 'andre',
+    age: 15,
+    gender: 'male'
+  }
+
+  const superDede: SuperHuman = {
+    name: 'superDede',
+    age: 99,
+    gender: 'superMale',
+    superPowers: ['invisibility', 'x-ray']
+  }
+
+  // console.log(superDede.superPowers);
+  
+
 
   return (
 
